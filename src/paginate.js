@@ -1,7 +1,7 @@
 /**
  *@author xyx   <kwin.xu@semioe.com>
  *        date: 2016.12.14
- *@description 
+ *@description 分页
  */
 /* jshint ignore: start */
 'use strict';
@@ -11,33 +11,24 @@
 const EventProxy = require('eventproxy');
 const PageUnit = require('./page_unit');
 
-module.exports = function (currentPage, pageSize, model, conditions, projection, options, callback) {
-    if (typeof conditions === 'function') {
-        callback = conditions;
-        conditions = {};
-        projection = null;
-        options = null;
-    } else if (typeof projection === 'function') {
-        callback = projection;
-        projection = null;
-        options = null;
-    } else if (typeof options === 'function') {
-        callback = options;
-        options = null;
-    }
 
+module.exports = function (currentPage, pageSize, model, conditions, projection, options) {
     return new Promise((resolve) => {
-        this.pageUnit = null;
+        let pageUnit = null;
         let ep = new EventProxy();
-        ep.on('queryPage', () => {
+        ep.on('_promise', () => {
             resolve({
-                source: model.find(conditions, projection, options, callback).skip(pageUnit.getSkip()).limit(pageUnit.getLimit()),
-                paginate: pageUnit.getPaginate()
+                findSource: () => {
+                    return model.find(conditions, projection, options).skip(pageUnit.getSkip()).limit(pageUnit.getLimit());
+                },
+                getPaginate: () => {
+                    return pageUnit.getPaginate();
+                }
             });
         });
         model.count(conditions).then((count) => {
             pageUnit = new PageUnit(currentPage, pageSize, count);
-            ep.emit('queryPage');
+            ep.emit('_promise');
         }).catch(resolve);
     })
 }
