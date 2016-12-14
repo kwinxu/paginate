@@ -1,5 +1,5 @@
 {
-    "name": "semioe-paginate",
+    "name": "paginate",
     "version": "1.0.0",
     "description": "data paging",
     "main": "index.js",
@@ -9,9 +9,12 @@
     },
     "repository": {
         "type": "git",
-        "url": "git@gitlab.semioe.com:api/paginate.git"
+        "url": "git@github.com:kwinxu/paginate.git"
     },
-    "author": "kwin.xu@semioe.com",
+    "author": {
+        "email": "kwin.xu@163.com",
+        "name": "xyx"
+    },
     "dependencies": {
         "eventproxy": "^0.3.4"
     },
