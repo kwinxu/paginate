@@ -1,5 +1,5 @@
 /**
- *@author xyx   <kwin.xu@semioe.com>
+ *@author xyx   <kwin.xu@163.com>
  *        date: 2016.12.14
  *@description 分页相关记录类
  */
