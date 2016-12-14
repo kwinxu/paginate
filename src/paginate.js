@@ -8,17 +8,10 @@
 /* jshint ignore: end   */
 
 
-const q = require('q');
+const EventProxy = require('eventproxy');
 const PageUnit = require('./page_unit');
 
-module.exports = (currentPage, pageSize, model, conditions, projection, options, callback) => {
-    let pageUnit = null;
-    if (currentPage < 1) {
-        currentPage = 1;
-    }
-    if (pageSize < 1) {
-        pageSize = 1;
-    }
+module.exports = function (currentPage, pageSize, model, conditions, projection, options, callback) {
     if (typeof conditions === 'function') {
         callback = conditions;
         conditions = {};
@@ -34,7 +27,9 @@ module.exports = (currentPage, pageSize, model, conditions, projection, options,
     }
 
     return new Promise((resolve) => {
-        q.on('queryPage', () => {
+        this.pageUnit = null;
+        let ep = new EventProxy();
+        ep.on('queryPage', () => {
             resolve({
                 source: model.find(conditions, projection, options, callback).skip(pageUnit.getSkip()).limit(pageUnit.getLimit()),
                 paginate: pageUnit.getPaginate()
@@ -42,6 +37,7 @@ module.exports = (currentPage, pageSize, model, conditions, projection, options,
         });
         model.count(conditions).then((count) => {
             pageUnit = new PageUnit(currentPage, pageSize, count);
+            ep.emit('queryPage');
         }).catch(resolve);
     })
 }

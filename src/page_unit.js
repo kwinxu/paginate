@@ -9,26 +9,28 @@
 
 
 function PageUnit(currentPage, pageSize, total) {
-    this.currentPage = currentPage;
-    this.pageSize = pageSize;
+    this.currentPage = currentPage < 1 ? 1 : currentPage;
+    this.pageSize = pageSize < 1 ? 1 : pageSize;
     this.total = total;
 
-    this.pageCount = this.total / this.pageSize === 0 ? this.total / this.pageSize : this.total / this.pageSize + 1;
+    this.pageCount = this.total % this.pageSize === 0 ? this.total / this.pageSize : parseInt(this.total / this.pageSize) + 1;
 }
 
-PageUnit.prototype.getSkip = () => {
+
+PageUnit.prototype.getSkip = function () {
     return (this.currentPage - 1) * this.pageSize;
 }
 
-PageUnit.prototype.getLimit = () => {
+PageUnit.prototype.getLimit = function () {
     return this.pageSize;
 }
 
-PageUnit.prototype.getPaginate = () => {
+PageUnit.prototype.getPaginate = function () {
     return {
         currentPage: this.currentPage,
         pageSize: this.pageSize,
-        total: this.total
+        total: this.total,
+        pageCount: this.pageCount
     }
 }
 
