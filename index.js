@@ -1,7 +1,7 @@
 /**
- *@author xyx   <kwin.xu@semioe.com>
+ * @author xyx   <kwin.xu@outlook.com>
  *        date: 2016.12.14
- *@description 
+ * @description 
  */
 /* jshint ignore: start */
 'use strict';
