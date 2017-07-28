@@ -1,7 +1,7 @@
 /**
- *@author xyx   <kwin.xu@163.com>
+ * @author xyx   <kwin.xu@163.com>
  *        date: 2016.12.14
- *@description mongoose 分页插件
+ * @description mongoose 分页插件
  */
 /* jshint ignore: start */
 'use strict';
