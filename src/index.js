@@ -7,4 +7,4 @@
 'use strict';
 /* jshint ignore: end   */
 
-module.exports.Paginate = require('./paginate');
+module.exports = require('./paginate');

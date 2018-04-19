@@ -4,10 +4,10 @@
 
 #### 示例
 ```
-const Paginate = require('paginate').Paginate;
+const Paginate = require('paginate');
 
 // params: currentPage, pageSize, model[, conditions, projection, options] 
-Paginate(1,1,models.Student ,{sex: 1} [,'name address'] [,{sort: {birthday: -1}}]).then((_paginate) => {
+Paginate(1, 1, models.Student, {sex: 1} [,'name address'] [,{sort: {birthday: -1}}]).then((_paginate) => {
     _paginate.getPaginate();    //{ currentPage: 1, pageSize: 1, total: 3, pageCount: 3 }
                                 //    当前页         每页大小      总记录数   总页数
     /**
